@@ -44,6 +44,14 @@ $(document).ready(function() {
             business.name = result.businesses[i]['name'];
             business.image = result.businesses[i]['image_url'];
             business.review = result.businesses[i]['snippet_text'];
+            business.rating = result.businesses[i]['rating_img_url'];
+            
+            if (business.image === undefined) {
+                business.image = '/img/img-not-found.png';
+            }
+            if (business.review === undefined) {
+                business.review = 'There are no review...';
+            }
             
             var resultDiv = `
             <div id="result-div">
@@ -57,7 +65,7 @@ $(document).ready(function() {
                     <p id="description">`+business.review+`</p>
                 </div>
                 <div id="info-div">
-                    <img id="stars-img" src="https://s3-media2.fl.yelpcdn.com/assets/2/www/img/99493c12711e/ico/stars/v1/stars_4_half.png">
+                    <img id="stars-img" src="`+business.rating+`">
                     <div id="join-div">
                         <button>I'm going</button>
                         <div id="join-count"><span id="count">5</span><span>going</span></div>

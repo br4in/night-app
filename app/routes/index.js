@@ -5,7 +5,7 @@ var ManageSearchModule = require(process.cwd() + "/app/controllers/search_contro
 module.exports = function(app, yelp) {
     
     var manageSearch = new ManageSearchModule(yelp);
-    var term, location;
+    var location;
     
     app.route('/')
         .get(function(request, response) {
