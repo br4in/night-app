@@ -65,6 +65,7 @@ header {
 /* results containers */
 
 #results-div {
+    display: none;
     margin-top: 50px;
 }
 

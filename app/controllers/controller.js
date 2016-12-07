@@ -11,28 +11,31 @@ $(document).ready(function() {
         } else {
             $('#search-bar').css({'margin-top': '130px'});
         }
-        
     });
     
     $('#search-bar').blur(function() {
-        if ($('#results-div').hasOwnProperty('display') === 'none') {
+        if ($("#results-div").css('display') === 'none' ) {
             $('#search-bar').css({'top': '50%'});
             $('#search-bar').css({'margin-top': 'inherit'});
-        } else {
-            
         }
-        
     });
     
     $('#search-form').submit(function(event) {
         event.preventDefault();
-        $('#search-bar').blur();
-        var data = {
-            search: $('#search-bar').val()
-        };
-        $.post('https://night-app-br4in.c9users.io/search', data, function(result) {
-            displayResult(result);
-        });
+        
+        if ($('#search-bar').val() === '') {
+            alert('You need to enter your location.');
+        } else {
+            $("#results-div").css({'display': 'block'}); 
+            $('#search-bar').blur();
+            var data = {
+                search: $('#search-bar').val()
+            };
+            $.post('https://night-app-br4in.c9users.io/search', data, function(result) {
+                displayResult(result);
+            });
+            $(this)[0].reset();
+        }
     });
     
     function displayResult(result) {
