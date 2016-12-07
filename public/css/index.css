@@ -1,0 +1,197 @@
+
+body {
+    margin: 0;
+    background: url('/img/night-city.jpeg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+header {
+    height: 150px;
+    border-bottom: 2px solid black;
+    position: relative;
+    box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+#title-div {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+#title-div h1 {
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 60px;
+    color: dodgerblue;
+}
+
+#content {
+    text-align: center;
+}
+
+/* Search bar */
+#search-bar {
+    width: 30px;
+    border-radius: 25px;
+    background-image: url('/img/search_b.png');
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    font-size: 16px;
+    background-position: 15px 6px;
+    background-color: white;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    transition: background-position 0.4s ease-in-out;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+#search-bar:focus {
+    background-image: url('/img/search_w.png');
+    background-position: 5px 6px;
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    outline: none;
+    color: white;
+    text-align: center;
+    transition: background-position 0.4s ease-in-out;
+}
+
+/* results containers */
+
+#results-div {
+    margin-top: 50px;
+}
+
+#result-div {
+    width: 500px;
+    padding: 10px;
+    margin: 15px auto;
+    overflow: auto;
+    min-height: 150px;
+    border-radius: 25px;
+    background-color: rgba(0, 0, 0, 0.6);
+    box-shadow: -4px -3px 1px rgba(255, 255, 100, 0.5);
+}
+
+#result-div:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+#result-div h1 {
+    margin: 0 auto;
+    color: dodgerblue;
+    font-family: 'Titan One', cursive;
+}
+
+#image {
+    max-width: 150px;
+    float: left;
+    margin: 5px;
+}
+
+#profile-img {
+    width: 100%;
+    border-radius: 35px;
+    box-shadow: -1px -1px 1px rgba(255, 255, 0, 0.5);
+}
+
+#review-div {
+    text-align: left;
+    color: white;
+}
+
+#review-div p {
+    margin: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-top-left-radius: 35px;
+    border-bottom-right-radius: 35px;
+    box-shadow: 1px 1px 0.5px rgba(255, 255, 0, 0.5);
+    font-family: 'Exo 2', sans-serif;
+}
+
+#info-div {
+    overflow: auto;
+}
+
+#count {
+    font-size: 22px;
+    color: white;
+    margin: 0 10px;
+}
+
+span {
+    color: white;
+    font-size: 20px;
+    font-family: 'Exo 2', sans-serif;
+}
+
+#stars-img {
+    width: 90px;
+    margin-top: 5px;
+    float: left;
+}
+
+button {
+    width: 80px;
+    height: 25px;
+    border-radius: 10px;
+    background-color: dodgerblue;
+    color: white;
+    font-family: 'Exo 2', sans-serif;
+}
+
+#join-count {
+    float: right;
+}
+
+@media screen and (max-width: 600px) {
+    #result-div {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    #result-div h1 {
+        font-size: 25px;
+    }
+    #result-div {
+        width: 300px;
+    }
+    #review-div {
+        font-size: 12px;
+    }
+    #image {
+        width: 110px;
+    }
+    #stars-img {
+    width: 60px;
+    }
+    header {
+        height: 100px;
+    }
+}
+
+@media screen and (max-width: 350px)  {
+    body:before {
+      content: "";
+      display: block;
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -10;
+      background: url('/img/night-city.jpeg') no-repeat center center;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+}
+    
+}
