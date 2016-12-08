@@ -48,6 +48,7 @@ $(document).ready(function() {
             business.image = result.businesses[i]['image_url'];
             business.review = result.businesses[i]['snippet_text'];
             business.rating = result.businesses[i]['rating_img_url'];
+            business.url = result.businesses[i]['url'];
             
             if (business.image === undefined) {
                 business.image = '/img/img-not-found.png';
@@ -58,12 +59,13 @@ $(document).ready(function() {
             
             var resultDiv = `
             <div id="result-div">
+                <a href="`+business.url+`">
                 <div id="title">
                     <h1>`+business.name+`</h1>
                 </div>
                 <div id="image">
                     <img id="profile-img" src="`+business.image+`">
-                </div>
+                </div></a>
                 <div id="review-div">
                     <p id="description">`+business.review+`</p>
                 </div>
