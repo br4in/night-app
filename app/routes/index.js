@@ -2,10 +2,10 @@
 
 var ManageSearchModule = require(process.cwd() + "/app/controllers/search_controller.js");
 
-module.exports = function(app, yelp) {
+module.exports = function(app, yelp, db) {
     
-    var manageSearch = new ManageSearchModule(yelp);
-    var location;
+    var manageSearch = new ManageSearchModule(yelp, db);
+    var location, username = 'br4in';
     
     app.route('/')
         .get(function(request, response) {
@@ -18,5 +18,11 @@ module.exports = function(app, yelp) {
             manageSearch.search(request, response, location);
         });
         
-    
+    app.route('/searchdb')
+        .get(function(request, response) {
+            var url = request.query.url;
+            console.log(url);
+            manageSearch.updatePartecipants(request, response, url, username);
+        });
+        
 };

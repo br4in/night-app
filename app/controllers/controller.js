@@ -2,6 +2,7 @@
 
 $(document).ready(function() {
     var width = $(window).width();
+    var username = 'br4in'; // temporary
     
     //animate search bar
     $('#search-bar').focus(function() {
@@ -31,6 +32,8 @@ $(document).ready(function() {
             var data = {
                 search: $('#search-bar').val()
             };
+            
+            
             $.post('https://night-app-br4in.c9users.io/search', data, function(result) {
                 displayResult(result);
             });
@@ -38,23 +41,39 @@ $(document).ready(function() {
         }
     });
     
+    $('#results-div').on('click', 'button', function() {
+        var url = $(this).attr('href');
+        $.getJSON('https://night-app-br4in.c9users.io/searchdb?url=' + url, function(result) {
+            console.log(result);
+        });
+    });
+    
     function displayResult(result) {
         $('#results-div').empty();
             var total = result.total;
             
-        for (var i = 1; i < total; i++) {
+        for (var i = 0; i < total; i++) {
             var business = {};
             business.name = result.businesses[i]['name'];
-            business.image = result.businesses[i]['image_url'];
-            business.review = result.businesses[i]['snippet_text'];
             business.rating = result.businesses[i]['rating_img_url'];
             business.url = result.businesses[i]['url'];
             
-            if (business.image === undefined) {
+            if (result.businesses[i]['image_url'] === undefined) {
                 business.image = '/img/img-not-found.png';
+            } else {
+                business.image = result.businesses[i]['image_url'];
             }
-            if (business.review === undefined) {
+            
+            if (result.businesses[i]['snippet_text'] === undefined) {
                 business.review = 'There are no review...';
+            } else {
+                business.review = result.businesses[i]['snippet_text'];
+            }
+            
+            if (result.businesses[i]['partecipants'] === undefined) {
+                business.partecipants = 0;
+            } else {
+                business.partecipants = result.businesses[i]['partecipants'];
             }
             
             var resultDiv = `
@@ -72,8 +91,8 @@ $(document).ready(function() {
                 <div id="info-div">
                     <img id="stars-img" src="`+business.rating+`">
                     <div id="join-div">
-                        <button>I'm going</button>
-                        <div id="join-count"><span id="count">5</span><span>going</span></div>
+                        <button href="`+business.url+`" id="join-btn">I'm going</button>
+                        <div id="join-count"><span id="count">`+business.partecipants+`</span><span>going</span></div>
                     </div>
                 </div>
             </div>`;
@@ -81,8 +100,5 @@ $(document).ready(function() {
             $('#results-div').append(resultDiv);
         }
     }
-    
-    
-    
-    
+  
 });
