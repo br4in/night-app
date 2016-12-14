@@ -3,6 +3,7 @@
 $(document).ready(function() {
     var width = $(window).width();
     var username = 'br4in'; // temporary
+    var lastSearch;
     
     //animate search bar
     $('#search-bar').focus(function() {
@@ -23,17 +24,15 @@ $(document).ready(function() {
     
     $('#search-form').submit(function(event) {
         event.preventDefault();
-        
+        lastSearch = $('#search-bar').val();
         if ($('#search-bar').val() === '') {
             alert('You need to enter your location.');
         } else {
             $("#results-div").css({'display': 'block'}); 
             $('#search-bar').blur();
             var data = {
-                search: $('#search-bar').val()
+                search: lastSearch
             };
-            
-            
             $.post('https://night-app-br4in.c9users.io/search', data, function(result) {
                 displayResult(result);
             });
@@ -45,6 +44,12 @@ $(document).ready(function() {
         var url = $(this).attr('href');
         $.getJSON('https://night-app-br4in.c9users.io/searchdb?url=' + url, function(result) {
             console.log(result);
+            var data = {
+                search: lastSearch
+            };
+            $.post('https://night-app-br4in.c9users.io/search', data, function(result) {
+                displayResult(result);
+            });
         });
     });
     

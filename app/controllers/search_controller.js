@@ -2,11 +2,12 @@ var async = require("async");
 'use strict';
 
 var partecipants = [];
+var lastLocation;
 function manageSearch(yelp, db) {
     var collection = db.collection('bars');
     
-    
     this.search = function(request, response, location) {
+        lastLocation = location;
         // See http://www.yelp.com/developers/documentation/v2/search_api
         yelp.search({ term: 'bars', location: location })
         .then(function (data) {
@@ -80,17 +81,18 @@ function isInDb(request, response, collection, url, username) {
                     {url: url},
                     {$pull: { partecipants: { $in: [username]}}
                 });
+                response.json('partecipant added to bar');
             } else {
                 console.log('add partecipant');
                 collection.update(
                     {url: url},
                     {$push: {partecipants: username}
                 });
+                response.json('partecipant removed from bar');
             }
         }
     });
 }
-
 
 function addBar(collection, url, bar, response) {
     collection.insert(bar, function(error, data) {
@@ -99,9 +101,6 @@ function addBar(collection, url, bar, response) {
         response.json('bar added to db');
     });
 }
-
-
-
 
 function getAllBars(collection) {
     collection.find({}).toArray(function (error, result) {
