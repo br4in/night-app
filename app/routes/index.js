@@ -33,7 +33,7 @@ module.exports = function(app, yelp, db, passport) {
         .get(passport.authenticate('twitter'));
     
     app.route('/auth/twitter/callback')
-        .get(passport.authenticate('twitter', { failureRedirect: '/' , successRedirect: 'back'}));
+        .get(passport.authenticate('twitter', { failureRedirect: '/' , successRedirect: '/'}));
         
     app.route('/profile')
         .get(function(request, response) {
