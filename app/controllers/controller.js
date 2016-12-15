@@ -48,6 +48,12 @@ $(document).ready(function() {
             var url = $(this).attr('href');
             $.getJSON('https://night-app-br4in.c9users.io/searchdb?url=' + url, function(result) {
                 console.log(result);
+                var data = {
+                    search: lastSearch
+                };
+                $.post('https://night-app-br4in.c9users.io/search', data, function(result) {
+                    displayResult(result);
+                });
             });
         } else {
             window.location.href = 'https://night-app-br4in.c9users.io/auth/twitter';
@@ -112,6 +118,7 @@ $(document).ready(function() {
             console.log(result.username + result.location + ' getinfo');
             if (result !== undefined) {
                 username = result.username;
+                lastSearch = result.location;
                 isLogged = true;
                 $("#results-div").css({'display': 'block'});
                 $('#search-bar').css({'top': '0'});
