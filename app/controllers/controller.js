@@ -2,8 +2,11 @@
 
 $(document).ready(function() {
     var width = $(window).width();
-    var username = 'br4in'; // temporary
+    var username, isLogged = false;
     var lastSearch;
+    
+    //init
+    getUserInfo();
     
     //animate search bar
     $('#search-bar').focus(function() {
@@ -41,16 +44,14 @@ $(document).ready(function() {
     });
     
     $('#results-div').on('click', 'button', function() {
-        var url = $(this).attr('href');
-        $.getJSON('https://night-app-br4in.c9users.io/searchdb?url=' + url, function(result) {
-            console.log(result);
-            var data = {
-                search: lastSearch
-            };
-            $.post('https://night-app-br4in.c9users.io/search', data, function(result) {
-                displayResult(result);
+        if (isLogged) {
+            var url = $(this).attr('href');
+            $.getJSON('https://night-app-br4in.c9users.io/searchdb?url=' + url, function(result) {
+                console.log(result);
             });
-        });
+        } else {
+            window.location.href = 'https://night-app-br4in.c9users.io/auth/twitter';
+        }
     });
     
     function displayResult(result) {
@@ -104,6 +105,29 @@ $(document).ready(function() {
             
             $('#results-div').append(resultDiv);
         }
+    }
+    
+    function getUserInfo() {
+        $.getJSON("https://night-app-br4in.c9users.io/profile", function(result) {
+            console.log(result.username + result.location + ' getinfo');
+            if (result !== undefined) {
+                username = result.username;
+                isLogged = true;
+                $("#results-div").css({'display': 'block'});
+                $('#search-bar').css({'top': '0'});
+                if (width > 400) {
+                    $('#search-bar').css({'margin-top': '180px'});
+                } else {
+                    $('#search-bar').css({'margin-top': '130px'});
+                }
+                var data = {
+                    search: result.location
+                };
+                $.post('https://night-app-br4in.c9users.io/search', data, function(result) {
+                    displayResult(result);
+                });
+            }
+        });
     }
   
 });

@@ -76,14 +76,14 @@ function isInDb(request, response, collection, url, username) {
             console.log('bar exist');
             var index = docs[0]['partecipants'].indexOf(username);
             if (index !== -1) {
-                console.log('remove partecipant');
+                console.log('add partecipant');
                 collection.update(
                     {url: url},
                     {$pull: { partecipants: { $in: [username]}}
                 });
                 response.json('partecipant added to bar');
             } else {
-                console.log('add partecipant');
+                console.log('remove partecipant');
                 collection.update(
                     {url: url},
                     {$push: {partecipants: username}
@@ -109,6 +109,5 @@ function getAllBars(collection) {
         console.log(result);
     });
 }
-
 
 module.exports = manageSearch;
